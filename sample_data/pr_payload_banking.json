@@ -1,0 +1,70 @@
+{
+  "source_system": "github",
+  "source_ref": "PR-4821",
+  "repository": "banking-org/payments-service",
+  "branch": "feature/PAY-1234-pci-tokenisation",
+  "target_branch": "main",
+  "commit_sha": "a3f9e2c",
+  "title": "PAY-1234: Add PCI tokenisation layer for card data",
+  "description": "Introduces a tokenisation service wrapper that replaces raw card numbers with opaque tokens before persistence. Updates the payments schema to store token_id instead of pan. Adds Vault integration for token lifecycle management.",
+  "change_type": "FEATURE",
+  "data_classification": "RESTRICTED",
+  "author": "jane.doe@bank.com",
+  "reviewers": [
+    "john.smith@bank.com",
+    "security-team@bank.com"
+  ],
+  "labels": [
+    "pci-dss",
+    "payments",
+    "needs-security-review"
+  ],
+  "jira_ticket": "PAY-1234",
+  "release_version": "2.14.0",
+  "target_environment": "production",
+  "changed_files": [
+    {
+      "path": "src/payments/tokenisation/service.py",
+      "category": "SOURCE_CODE",
+      "lines_added": 312,
+      "lines_removed": 14,
+      "is_breaking_change": false
+    },
+    {
+      "path": "src/payments/schema/payment.py",
+      "category": "API_SCHEMA",
+      "lines_added": 28,
+      "lines_removed": 45,
+      "is_breaking_change": true,
+      "breaking_change_reason": "Field 'pan' removed; replaced by 'token_id' \u2014 clients must migrate"
+    },
+    {
+      "path": "alembic/versions/0042_add_token_id_column.py",
+      "category": "DATABASE_MIGRATION",
+      "lines_added": 67,
+      "lines_removed": 0,
+      "is_breaking_change": false
+    },
+    {
+      "path": "infra/vault/tokenisation-policy.hcl",
+      "category": "INFRASTRUCTURE_AS_CODE",
+      "lines_added": 89,
+      "lines_removed": 0,
+      "is_breaking_change": false
+    },
+    {
+      "path": "tests/unit/payments/test_tokenisation_service.py",
+      "category": "TEST",
+      "lines_added": 145,
+      "lines_removed": 0,
+      "is_breaking_change": false
+    },
+    {
+      "path": "requirements.txt",
+      "category": "DEPENDENCY_MANIFEST",
+      "lines_added": 3,
+      "lines_removed": 1,
+      "is_breaking_change": false
+    }
+  ]
+}

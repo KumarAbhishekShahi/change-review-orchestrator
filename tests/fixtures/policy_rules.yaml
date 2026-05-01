@@ -1,0 +1,153 @@
+
+# Change Review Orchestrator — Policy Rules
+# ==========================================
+# Each rule defines:
+#   id:               Unique policy reference (cite in findings)
+#   title:            Human-readable policy name
+#   description:      What the policy requires
+#   applies_to:
+#     change_types:   List of ChangeType values (or ["*"] for all)
+#     data_classifications: List of DataClassification values (or ["*"] for all)
+#     asset_categories:     List of AssetCategory values (or [] to ignore)
+#     concerns:             List of concern keywords (from impact agent, or [] to ignore)
+#   severity:         Severity if this obligation is NOT met
+#   obligation:       What must be present/true for the policy to be satisfied
+#   gap_check:        Field path on ChangeCase to check (dot notation), or null
+#   gap_check_truthy: True = field must be non-empty/truthy; False = must be falsy
+
+policies:
+  - id: POL-SEC-001
+    title: Security Review Required for RESTRICTED/HIGHLY_RESTRICTED Changes
+    description: >
+      Any change touching RESTRICTED or HIGHLY_RESTRICTED data assets must
+      include a formal security review sign-off from the Security team.
+    applies_to:
+      change_types: ["*"]
+      data_classifications: ["RESTRICTED", "HIGHLY_RESTRICTED"]
+      asset_categories: []
+      concerns: []
+    severity: HIGH
+    obligation: security_team_reviewer_present
+    gap_check: reviewers
+    gap_check_truthy: true
+
+  - id: POL-CHG-001
+    title: JIRA Ticket Required for All Changes
+    description: >
+      Every change request must be linked to an approved JIRA ticket for
+      audit traceability and change management compliance.
+    applies_to:
+      change_types: ["*"]
+      data_classifications: ["*"]
+      asset_categories: []
+      concerns: []
+    severity: MEDIUM
+    obligation: jira_ticket_linked
+    gap_check: jira_ticket
+    gap_check_truthy: true
+
+  - id: POL-CHG-002
+    title: Release Version Required Before Production Deployment
+    description: >
+      All production-bound changes must specify a release version for
+      artifact traceability and rollback identification.
+    applies_to:
+      change_types: ["*"]
+      data_classifications: ["*"]
+      asset_categories: []
+      concerns: []
+    severity: MEDIUM
+    obligation: release_version_specified
+    gap_check: release_version
+    gap_check_truthy: true
+
+  - id: POL-DB-001
+    title: DBA Sign-off Required for Database Migrations
+    description: >
+      Database schema migrations require explicit DBA review and sign-off
+      before deployment. Rollback scripts must be attached to the PR.
+    applies_to:
+      change_types: ["*"]
+      data_classifications: ["*"]
+      asset_categories: ["DATABASE_MIGRATION"]
+      concerns: []
+    severity: HIGH
+    obligation: dba_reviewer_present
+    gap_check: reviewers
+    gap_check_truthy: true
+
+  - id: POL-API-001
+    title: API Contract Change Requires Consumer Notification
+    description: >
+      Any breaking change to an API contract or schema must include
+      evidence of consumer notification and a migration guide.
+    applies_to:
+      change_types: ["*"]
+      data_classifications: ["*"]
+      asset_categories: ["API_SCHEMA"]
+      concerns: []
+    severity: HIGH
+    obligation: breaking_change_migration_guide_attached
+    gap_check: has_breaking_changes
+    gap_check_truthy: false
+
+  - id: POL-PCI-001
+    title: PCI-DSS Change Control Mandatory for Payment Systems
+    description: >
+      Changes to payment systems must follow PCI-DSS change control
+      procedures including dual approval, test evidence, and rollback plan.
+    applies_to:
+      change_types: ["FEATURE", "BUG_FIX", "HOTFIX", "REFACTOR", "DATABASE_MIGRATION"]
+      data_classifications: ["RESTRICTED", "HIGHLY_RESTRICTED"]
+      asset_categories: []
+      concerns: ["payment/pci"]
+    severity: CRITICAL
+    obligation: pci_dual_approval_present
+    gap_check: reviewers
+    gap_check_truthy: true
+
+  - id: POL-SEC-002
+    title: Security Patch Fast-Track Requires CISO Approval
+    description: >
+      Security patches must be approved by the CISO or designated security
+      lead before merging to the main branch.
+    applies_to:
+      change_types: ["SECURITY_PATCH", "HOTFIX"]
+      data_classifications: ["*"]
+      asset_categories: []
+      concerns: []
+    severity: CRITICAL
+    obligation: ciso_approval_present
+    gap_check: labels
+    gap_check_truthy: true
+
+  - id: POL-IAC-001
+    title: Platform Team Review for Infrastructure Changes
+    description: >
+      Infrastructure-as-Code changes require review and approval from the
+      Platform/SRE team before applying to any environment.
+    applies_to:
+      change_types: ["*"]
+      data_classifications: ["*"]
+      asset_categories: ["INFRASTRUCTURE_AS_CODE"]
+      concerns: []
+    severity: HIGH
+    obligation: platform_team_reviewer_present
+    gap_check: reviewers
+    gap_check_truthy: true
+
+  - id: POL-DEP-001
+    title: Dependency Changes Require SCA Scan Evidence
+    description: >
+      Any change to dependency manifests (requirements.txt, pyproject.toml,
+      package.json, etc.) requires an attached SCA scan report showing
+      no new critical or high CVEs.
+    applies_to:
+      change_types: ["*"]
+      data_classifications: ["*"]
+      asset_categories: ["DEPENDENCY_MANIFEST"]
+      concerns: []
+    severity: MEDIUM
+    obligation: sca_scan_report_attached
+    gap_check: labels
+    gap_check_truthy: true
