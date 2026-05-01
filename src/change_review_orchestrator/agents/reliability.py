@@ -47,10 +47,10 @@ _CHANGE_TYPE_RISK: dict[ChangeType, int] = {
     ChangeType.FEATURE:         20,
     ChangeType.REFACTOR:        25,
     ChangeType.BUG_FIX:         15,
-    ChangeType.CONFIG_CHANGE:   20,
-    ChangeType.DEPENDENCY_UPDATE: 15,
+    ChangeType.CONFIGURATION:   20,
+    ChangeType.DEPENDENCY_UPGRADE: 15,
     ChangeType.DOCUMENTATION:   2,
-    ChangeType.OTHER:           15,
+    ChangeType.UNKNOWN:           15,
 }
 
 _TIER_RISK: dict[str, int] = {

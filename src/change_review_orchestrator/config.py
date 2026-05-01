@@ -116,3 +116,7 @@ def get_settings() -> Settings:
     In tests, call get_settings.cache_clear() to reset between test cases.
     """
     return Settings()
+
+
+# Module-level singleton
+settings = get_settings()

@@ -18,7 +18,7 @@ import structlog
 from sqlalchemy import create_engine, event, text
 from sqlalchemy.orm import Session, sessionmaker
 
-from change_review_orchestrator.config import settings
+from change_review_orchestrator.config import get_settings`nsettings = get_settings()
 from change_review_orchestrator.persistence.models import Base
 
 logger = structlog.get_logger(__name__)
@@ -81,3 +81,4 @@ def get_db() -> Generator[Session, None, None]:
         raise
     finally:
         session.close()
+
