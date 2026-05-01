@@ -1,0 +1,47 @@
+{
+  "title": "SEC-88: Patch OAuth2 token validation \u2014 CVE-2024-38821",
+  "source_system": "github",
+  "repository": "banking-org/identity-service",
+  "branch": "security/SEC-88-cve-2024-38821",
+  "author": "security-team@bank.com",
+  "commit_sha": "c7f0d91",
+  "change_type": "SECURITY_PATCH",
+  "data_classification": "RESTRICTED",
+  "jira_ticket": "SEC-88",
+  "release_version": "2.3.5",
+  "has_breaking_changes": false,
+  "labels": [
+    "security",
+    "cve",
+    "oauth2",
+    "identity"
+  ],
+  "description": "Patches JWT algorithm confusion vulnerability. Enforces RS256 explicitly and rejects tokens signed with HS256. Adds audience validation.",
+  "changed_files": [
+    {
+      "path": "src/auth/jwt_validator.py",
+      "lines_added": 45,
+      "lines_removed": 18
+    },
+    {
+      "path": "src/auth/token_service.py",
+      "lines_added": 30,
+      "lines_removed": 22
+    },
+    {
+      "path": "config/auth_settings.yaml",
+      "lines_added": 8,
+      "lines_removed": 3
+    },
+    {
+      "path": "requirements.txt",
+      "lines_added": 2,
+      "lines_removed": 2
+    },
+    {
+      "path": "tests/unit/test_jwt_validator.py",
+      "lines_added": 88,
+      "lines_removed": 15
+    }
+  ]
+}

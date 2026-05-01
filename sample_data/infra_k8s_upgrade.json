@@ -1,0 +1,54 @@
+{
+  "title": "INFRA-201: Upgrade Kubernetes node pool to 1.29 + Istio sidecar update",
+  "source_system": "github",
+  "repository": "banking-org/platform-infra",
+  "branch": "infra/INFRA-201-k8s-upgrade",
+  "author": "platform-team@bank.com",
+  "commit_sha": "a2b3c4d",
+  "change_type": "INFRASTRUCTURE",
+  "data_classification": "INTERNAL",
+  "jira_ticket": "INFRA-201",
+  "release_version": "platform-2026-Q2",
+  "has_breaking_changes": true,
+  "labels": [
+    "infrastructure",
+    "kubernetes",
+    "istio",
+    "breaking"
+  ],
+  "description": "Upgrades node pool from K8s 1.27 to 1.29. Updates Istio sidecar injection config. Removes deprecated PodSecurityPolicy resources. Requires rolling node replacement.",
+  "changed_files": [
+    {
+      "path": "infra/k8s/node-pool.tf",
+      "lines_added": 35,
+      "lines_removed": 28,
+      "is_breaking_change": true
+    },
+    {
+      "path": "infra/k8s/istio-config.yaml",
+      "lines_added": 62,
+      "lines_removed": 40
+    },
+    {
+      "path": "infra/k8s/pod-security-policy.yaml",
+      "lines_added": 0,
+      "lines_removed": 120,
+      "is_breaking_change": true
+    },
+    {
+      "path": "infra/k8s/namespaces.tf",
+      "lines_added": 18,
+      "lines_removed": 5
+    },
+    {
+      "path": ".github/workflows/deploy.yml",
+      "lines_added": 25,
+      "lines_removed": 15
+    },
+    {
+      "path": "docs/runbooks/k8s-upgrade-runbook.md",
+      "lines_added": 110,
+      "lines_removed": 0
+    }
+  ]
+}

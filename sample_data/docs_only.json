@@ -1,0 +1,39 @@
+{
+  "title": "DOCS-12: Update API reference and onboarding guide",
+  "source_system": "github",
+  "repository": "banking-org/developer-portal",
+  "branch": "docs/DOCS-12-api-reference-update",
+  "author": "tech-writer@bank.com",
+  "commit_sha": "b1c2d3e",
+  "change_type": "DOCUMENTATION",
+  "data_classification": "PUBLIC",
+  "jira_ticket": "DOCS-12",
+  "has_breaking_changes": false,
+  "labels": [
+    "documentation",
+    "public"
+  ],
+  "description": "Updates REST API reference docs. Adds new onboarding guide for external developers. No code changes.",
+  "changed_files": [
+    {
+      "path": "docs/api-reference/payments.md",
+      "lines_added": 145,
+      "lines_removed": 30
+    },
+    {
+      "path": "docs/guides/onboarding.md",
+      "lines_added": 200,
+      "lines_removed": 0
+    },
+    {
+      "path": "docs/changelog.md",
+      "lines_added": 15,
+      "lines_removed": 2
+    },
+    {
+      "path": "README.md",
+      "lines_added": 10,
+      "lines_removed": 5
+    }
+  ]
+}

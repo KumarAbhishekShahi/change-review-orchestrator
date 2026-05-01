@@ -1,0 +1,49 @@
+{
+  "title": "AML-442: Add suspicious_activity_score column to transactions table",
+  "source_system": "github",
+  "repository": "banking-org/aml-engine",
+  "branch": "feature/AML-442-suspicion-score",
+  "author": "aml-team@bank.com",
+  "commit_sha": "9d4e2f1",
+  "change_type": "DATABASE_MIGRATION",
+  "data_classification": "HIGHLY_RESTRICTED",
+  "jira_ticket": "AML-442",
+  "release_version": "1.9.0",
+  "has_breaking_changes": true,
+  "labels": [
+    "aml",
+    "database",
+    "compliance",
+    "gdpr"
+  ],
+  "description": "Adds ML-derived suspicion score to transaction records for AML screening. Includes index for query performance. Backfill job required post-deploy.",
+  "changed_files": [
+    {
+      "path": "alembic/versions/0099_add_suspicion_score.py",
+      "lines_added": 55,
+      "lines_removed": 0,
+      "is_breaking_change": false
+    },
+    {
+      "path": "src/aml/transaction_scorer.py",
+      "lines_added": 180,
+      "lines_removed": 12
+    },
+    {
+      "path": "src/aml/models/transaction.py",
+      "lines_added": 15,
+      "lines_removed": 2,
+      "is_breaking_change": true
+    },
+    {
+      "path": "scripts/backfill_suspicion_scores.py",
+      "lines_added": 90,
+      "lines_removed": 0
+    },
+    {
+      "path": "tests/integration/test_transaction_scorer.py",
+      "lines_added": 75,
+      "lines_removed": 5
+    }
+  ]
+}

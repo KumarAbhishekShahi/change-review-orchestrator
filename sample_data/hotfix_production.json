@@ -1,0 +1,32 @@
+{
+  "title": "HOTFIX-911: Fix null pointer in payment gateway timeout handler",
+  "source_system": "github",
+  "repository": "banking-org/payment-gateway",
+  "branch": "hotfix/HOTFIX-911-npe-timeout",
+  "author": "oncall-dev@bank.com",
+  "commit_sha": "f3a1b2c",
+  "change_type": "HOTFIX",
+  "data_classification": "CONFIDENTIAL",
+  "jira_ticket": "HOTFIX-911",
+  "release_version": "3.8.1",
+  "has_breaking_changes": false,
+  "labels": [
+    "hotfix",
+    "production",
+    "p0"
+  ],
+  "description": "Critical NPE in timeout handler causing 5xx errors in production. Fix: null-check before dereferencing gateway response object.",
+  "changed_files": [
+    {
+      "path": "src/gateway/timeout_handler.py",
+      "lines_added": 8,
+      "lines_removed": 3,
+      "is_breaking_change": false
+    },
+    {
+      "path": "tests/unit/test_timeout_handler.py",
+      "lines_added": 22,
+      "lines_removed": 0
+    }
+  ]
+}

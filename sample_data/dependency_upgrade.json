@@ -1,0 +1,43 @@
+{
+  "title": "DEP-55: Upgrade Spring Boot 3.1 \u2192 3.3 and related dependencies",
+  "source_system": "github",
+  "repository": "banking-org/loan-service",
+  "branch": "chore/DEP-55-spring-boot-upgrade",
+  "author": "dev-team@bank.com",
+  "commit_sha": "e5f6a7b",
+  "change_type": "DEPENDENCY_UPGRADE",
+  "data_classification": "INTERNAL",
+  "jira_ticket": "DEP-55",
+  "release_version": "4.2.0",
+  "has_breaking_changes": true,
+  "labels": [
+    "dependencies",
+    "spring-boot",
+    "upgrade"
+  ],
+  "description": "Upgrades Spring Boot from 3.1.x to 3.3.x. Includes Jackson, Hibernate, Flyway updates. Breaking: Spring Security filter chain config changed.",
+  "changed_files": [
+    {
+      "path": "pom.xml",
+      "lines_added": 48,
+      "lines_removed": 45,
+      "is_breaking_change": true
+    },
+    {
+      "path": "src/main/java/config/SecurityConfig.java",
+      "lines_added": 35,
+      "lines_removed": 28,
+      "is_breaking_change": true
+    },
+    {
+      "path": "src/main/java/config/DatabaseConfig.java",
+      "lines_added": 12,
+      "lines_removed": 8
+    },
+    {
+      "path": "src/test/java/LoanServiceIntegrationTest.java",
+      "lines_added": 20,
+      "lines_removed": 15
+    }
+  ]
+}
